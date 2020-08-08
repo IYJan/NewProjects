@@ -1,4 +1,4 @@
-package com.home.lozhkovoy;
+﻿package com.home.lozhkovoy;
 
 //import java.util.Arrays;
 import java.util.Scanner;
@@ -22,12 +22,12 @@ public class CalculatorTest {
         try {
             System.out.println("Введите арифметическую операцию:");
             num1 = reader.nextLine();
-            text = num1.replaceAll("\\s",""); // удалить все пробелы из введенной строки
-            String[] blocks = text.split("[+-/*]"); // поместить в строковый массив все переменные до знака и после любого из арифметических знаков
+            text = num1.replaceAll("\\s",""); // заменить все пробелы (\s) из введенной строки, на ""
+            String[] blocks = text.split("[\\Q^*/+-%\\E]"); // поместить в строковый массив все переменные до знака и после любого из арифметических знаков
             romano = 0;
             sign = checkSign(text); // метод определения знака операции
 
-            for (int i = 0; i <= 9; i++) {
+            for (int i = 0; i <= 9; i++) { //определить однотипные числа или нет
                 if (rome[i].equals(blocks[0])) {
                     blocks[0] = Integer.toString(arab[i]);
                     romano++;
@@ -58,14 +58,18 @@ public class CalculatorTest {
     }
 
     private static char checkSign(String text) { //определение знака арифметической операции
-        if (text.indexOf("+") != -1) {
-            return '+';
-        } else if (text.indexOf("-") != -1) {
-            return '-';
+         if (text.indexOf("^") != -1) {
+            return '^';
         } else if (text.indexOf("*") != -1) {
             return '*';
         } else if (text.indexOf("/") != -1) {
             return '/';
+        } else if (text.indexOf("+") != -1) {
+            return '+';
+        } else if (text.indexOf("-") != -1) {
+            return '-';
+        } else if (text.indexOf("%") != -1) {
+            return '%';
         } else {
             System.out.println("Арифметические операции только со знаками: /, *, +, -");
             throw new IllegalArgumentException();
